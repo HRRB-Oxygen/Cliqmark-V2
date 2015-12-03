@@ -74,8 +74,8 @@ exports.addBookmark = function(req, res) {
   var userId = req.body.userId;
   var taxonomyResult = util.taxonomy(url);
 
-  console.log("I AM LOGGING TAXONOMYRESULT", taxonomyResult);
-  console.log('taxonomy: ', taxonomyResult)
+  // console.log("I AM LOGGING TAXONOMYRESULT", taxonomyResult);
+  // console.log('taxonomy: ', taxonomyResult)
 
   console.log('url: ',url);
   console.log(userId);
