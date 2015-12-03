@@ -8,6 +8,7 @@ var Promise = require('bluebird');
 //Create the AlchemyAPI object
 var AlchemyAPI = require('./alchemyapi');
 var alchemyapi = new AlchemyAPI();
+
 var alch = Promise.promisifyAll(alchemyapi);
 var handler = require('./request-handler');
 

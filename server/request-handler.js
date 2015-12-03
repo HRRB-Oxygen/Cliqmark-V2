@@ -72,6 +72,7 @@ exports.getBookmarks = function(req, res) {
 exports.addBookmark = function(req, res) {
   var url = req.body.url;
   var userId = req.body.userId;
+
   console.log('url: ',url);
   // console.log(userId);
 
