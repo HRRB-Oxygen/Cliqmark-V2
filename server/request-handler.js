@@ -72,13 +72,17 @@ exports.getBookmarks = function(req, res) {
 exports.addBookmark = function(req, res) {
   var url = req.body.url;
   var userId = req.body.userId;
+<<<<<<< HEAD
+  // console.log('taxonomy: ', taxonomyResult)
+=======
   var taxonomyResult = util.taxonomy(url);
 
   // console.log("I AM LOGGING TAXONOMYRESULT", taxonomyResult);
   // console.log('taxonomy: ', taxonomyResult)
 
+>>>>>>> 874fa35576a5f1f44defe2814b71f959067676e9
   console.log('url: ',url);
-  console.log(userId);
+  // console.log(userId);
 
   if (!url) { return res.status(401).send('no url'); }
   if (!userId) { return res.status(401).send('no user'); }
@@ -92,16 +96,15 @@ exports.addBookmark = function(req, res) {
     util.getPageSnapshot(url, config.shotpath + page.snapshot);
 
     db.createBookmark(userId, page.title, page.url, page.snapshot, '', page.text, function(err, bookmarkId){
+      console.log('urllllll: ',page.id)
       if (err) {
         res.status(401).send(err);
       } else {
         page.id = bookmarkId;
         res.status(200).send(page);
       }
-      if(taxonomyResult === undefined){
-        taxonomyResult = 'other';
-      }
-      exports.addTag(req, res, taxonomyResult, bookmarkId);
+
+      util.taxonomy(req,res,page.url,bookmarkId)
 
     });
   });

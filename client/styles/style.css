@@ -3,7 +3,6 @@ body {
   margin-top: 5px;
   background-image: url('http://www.wallsauce.com/uploads/wallsauce-com/images/products/web/studio-arterie/large/bsn01.jpg');
   background-size: 100% 100%;
-    background-repeat: no-repeat;
 }
 
 a {
@@ -572,12 +571,15 @@ section h3.section-subheading {
 .team-member p {
     margin-top: 0
 }
-
+aside {
+  background-color: #fff;
+}
 aside.clients img {
     margin: 50px auto
 }
 
 footer {
+    background-color: #fff;
     padding: 25px 0;
     text-align: center
 }
