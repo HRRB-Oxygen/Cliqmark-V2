@@ -92,7 +92,7 @@ exports.getPageSnapshot = function(url, snapshotPath) {
 
     easyimg.crop({
       src: snapshotPath + '.org.png', dst:snapshotPath + '.1280.png',
-      cropwidth:1280, cropheight:1280,
+      cropwidth:1200, cropheight:1200,
       gravity: 'North',
       x:0, y:0
     })
@@ -100,8 +100,8 @@ exports.getPageSnapshot = function(url, snapshotPath) {
       easyimg.resize({
         src:snapshotPath + '.1280.png',
         dst:snapshotPath,
-        width:300,
-        height:00
+        width:200,
+        height:200
       })
       .then(function(image) {
         console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
