@@ -115,6 +115,18 @@ exports.deleteBookmark = function(req, res) {
   });
 };
 
+exports.getRecs = function(req, res) {
+
+  var url = req.body.url;
+  db.getRecs(url, function(err, recommendation) {
+    if (err) {
+      res.status(401).send(err);
+    } else {
+      res.status(200).send(recommendation);
+    }
+  });
+};
+
 exports.addTag = function(req, res, tagName, bookmarkId) {
   //todo: add this functionality to client
 
