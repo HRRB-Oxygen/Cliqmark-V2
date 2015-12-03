@@ -8,6 +8,12 @@ var Promise = require('bluebird');
 //Create the AlchemyAPI object
 var AlchemyAPI = require('./alchemyapi');
 var alchemyapi = new AlchemyAPI();
+<<<<<<< HEAD
+var alch = Promise.promisifyAll(alchemyapi);
+var handler = require('./request-handler');
+
+=======
+>>>>>>> 874fa35576a5f1f44defe2814b71f959067676e9
 
 var alch = Promise.promisifyAll(alchemyapi)
 
@@ -139,23 +145,24 @@ exports.createSession = function(req, res, newUser) {
     });
 };
 
+exports.tag = {}
 
+exports.taxonomy = function(req,res,url, bm){
 
-exports.taxonomy = function(url){
-  var result;
-  console.log('alch: ',alch)
-  return alch.taxonomyAsync('url', url, {}).then(function(response){
+  console.log('alch: ',alch,'bm: ' ,bm)
+  alchemyapi.taxonomy('url', url, {},function(response){
 
-    //console.log('taxonomy: ', response.taxonomy);
+    console.log('taxonomyAsync: ', response.taxonomy);
     var arr = response.taxonomy;
     for(var i = 0; i < arr.length; i++){
       if((arr[i]['score']) >= 0.75){
-        return arr[i]['label'].match(/\/(.+?)(?=\/)/)[1];
+         handler.addTag(req,res,arr[i]['label'].match(/\/(.+?)(?=\/)/)[1],bm);
+         return;
 
         //console.log(arr[0]['label'].match(/\/(.+?)(?=\/)/));
 
       }
     }
   })
-   return results;
+
 }
