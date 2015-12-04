@@ -172,21 +172,41 @@ exports.removeBookmark = function(bookmarkId, callback) {
   });
 };
 
-
-//get tagId from bookmarked site
-exports.findTags = function() {
-
-};
-
-//find recommendations for recently bookmarked site based on tagId
-exports.findRecs = function(tagId, bookmarkId, callback) {
-  Tag.findOne({ where: {tagName: tagName} })
-  var query = "SELECT tagId FROM BookmarkTags WHERE bookmarkId = " + bookmarkId + " AND tagId = " + tagId + ";";
-
-  sequelize.query(query).spread(function(results) {
-    callback();
-  });
-
+// Find recommendations for recently bookmarked site based on tagId
+// Should re-factor this into a single mysql query
+exports.getRecs = function(url, callback) {
+  // Find bookmark id for the url we're passing in
+  Bookmark.findOne({ where: { url: url }})
+  .then(function (bookmark) {
+    // Find the tagId of the current bookmark
+    BookmarkTags.findOne({ where: { bookmarkId: bookmark.id }} )
+    .then(function (bookmarkTag) {
+      console.log('bookmarkTag', bookmarkTag);
+      // Once we have the tagId, find a different bookmark with the same tag
+      BookmarkTags.findAll({ where: { tagId: bookmarkTag.tagId }} )
+      .then(function (newBookmarkTags) {
+        console.log('all bookmarkTags', newBookmarkTags);
+        for( var i = 0; i < newBookmarkTags.length; i++ ){
+          var recommendation;
+          if( newBookmarkTags[i].url !== url ){
+            recommendation = newBookmarkTags[i];
+            break;
+          }
+        }
+        console.log('recommendation bookmarkTag', recommendation);
+        if( !recommendation ){
+          callback('No recommendations were found');
+        }
+        // Now we have the id for our recommendation, so go back to bookmarks table and query it
+        Bookmark.findOne({ where: { id: recommendation.bookmarkId }} )
+        .then(function (recommendation) {
+          console.log('recommendation', recommendation);
+          // Return the recommendation as an argument of a callback function
+          callback(null, recommendation);
+        })
+      })
+    })
+  })
 };
 
 //finds or creates a tag, and adds a join to the bookmark ID
