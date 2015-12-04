@@ -69,7 +69,7 @@ exports.getBookmarks = function(req, res) {
   });
 };
 
-exports.addBookmark = function(req, res) {
+exports.addBookmark = function(req, res, tagName) {
   var url = req.body.url;
   var userId = req.body.userId;
 

@@ -12,7 +12,7 @@ chrome.runtime.onMessageExternal.addListener(function(request, sender, sendRespo
 });
 
 var addBookmark = function(info, tab){
-  console.log('info: ', info, 'tab: ', tab)
+
   var xhr = new XMLHttpRequest();
   xhr.open('POST', 'http://0.0.0.0:3000/api/addBookmark', true);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');

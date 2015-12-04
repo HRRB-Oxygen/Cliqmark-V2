@@ -6,7 +6,7 @@ angular.module('cliqmark.bookmarks', [])
     Bookmarks.getData()
       .then(function(data) {
         $scope.data.bookmarks = data;
-        //console.log("this is data",data);
+        console.log("THIS IS DATA.BOOKMARKS",data);
        
       })
       .catch(function(err) {
